@@ -14,6 +14,23 @@ const app = express();
 
 app.use(express.json());
 
+app.get("/astronauts", async (req, res) => {
+  try {
+    // Llama a la función getAstronauts y espera su resolución
+    const astronauts = await getAstronauts();
+    // Envía la respuesta en formato JSON
+    res.json(astronauts);
+  } catch (error) {
+    // Maneja errores si ocurren durante la obtención de datos
+    res.status(500).json({ error: error.message });
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 /* 
 
 All json responses for this tasks should follow the pattern:
